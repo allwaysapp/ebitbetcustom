@@ -1,3 +1,125 @@
 #main-slider{
   order:-1 !important;
 }
+
+
+body {
+    background-color: #081726;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1440px;
+    margin: auto;
+}
+
+.product-banner {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+    width: 100%;
+    height: auto;
+}
+
+.first-content {
+    grid-column: span 9;
+    display: flex;
+    gap: 1rem;
+}
+
+
+.first-content-item,
+.second-content-item {
+    overflow: hidden;
+    border-radius: 1rem;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
+    transition: transform 0.3s ease;
+}
+
+
+
+.second-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-column: span 3;
+    background: url(https://github.com/allwaysapp/ebitbetcustom/blob/main/img/pgame-back.jpg?raw=true);
+    background-position: center;
+    background-size: cover;
+    border-radius: 1rem;
+    width: 100%;
+    height: 100%;
+    padding: .5rem;
+
+}
+
+.second-content-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+.product-btn {
+    position: absolute;
+    text-decoration: none;
+    color: white;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: .3rem 1.2rem;
+    background-color: #e8b76f;
+    border-radius: 0.5rem;
+    white-space: nowrap;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.product-btn:hover {
+    background-color: #d4a55f;
+    transform: translateX(-50%) translateY(-3px);
+    box-shadow: 0 5px 15px rgba(232, 183, 111, 0.4);
+}
+
+.product-btn1 {
+    text-decoration: none;
+    color: white;
+    padding: .3rem 1.2rem;
+    background-color: #e8b76f;
+    border-radius: 0.5rem;
+    white-space: nowrap;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.product-btn1:hover {
+    background-color: #d4a55f;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(232, 183, 111, 0.4);
+}
+
+.week-game {
+    max-width: 110px;
+    transition: transform 0.3s ease;
+}
+
+.week-game:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.week-game img {
+    transition: transform 0.3s ease;
+}
