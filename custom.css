@@ -2,7 +2,6 @@
   order:-1 !important;
 }
 
-
 .product-banner {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
