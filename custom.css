@@ -122,6 +122,7 @@
 
     .second-content {
         grid-column: span 12;
+        min-height: 340px;
     }
 
   .product-btn {
