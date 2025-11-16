@@ -3,18 +3,6 @@
 }
 
 
-body {
-    background-color: #081726;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.container {
-    max-width: 1440px;
-    margin: auto;
-}
-
 .product-banner {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -122,4 +110,17 @@ body {
 
 .week-game img {
     transition: transform 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .first-content {
+        grid-column: span 12;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .second-content {
+        grid-column: span 12;
+    }
 }
