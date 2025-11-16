@@ -273,3 +273,15 @@ ease;
         margin: 0;
     }
 }
+
+.slide-content.mid-me {
+    height: auto !important;
+}
+
+.swiper.swiper-initialized.swiper-horizontal .swiper-slide .partner {
+    min-height: 90px;
+}
+
+.swiper.swiper-initialized.swiper-horizontal .swiper-slide.mini-swiper .slide-content.mid-me{
+  width: auto !important;
+}
