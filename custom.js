@@ -39,7 +39,7 @@
             <div class="product-banner">
                 <div class="first-content">
                     <div class="first-content-item">
-                        <a class="product-btn" href="${langPrefix}/slots">GİRİŞ YAP</a>
+                        <a class="product-btn" href="${langPrefix}/casino">GİRİŞ YAP</a>
                         <a href="${langPrefix}/casino"><img
                                 src="https://github.com/allwaysapp/ebitbetcustom/blob/main/img/pcasino.jpg?raw=true"
                                 alt=""></a>
