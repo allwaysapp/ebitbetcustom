@@ -398,7 +398,7 @@ function addPromotionsButton() {
     promotionsBtn.innerHTML = `
         <a class="sidebar__link sidebar__link--bonus sidebar__link--promotions w-100" 
            href="${langPrefix}/promotions" 
-           style="background: url('https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/statics/9P2SH1Y6NzN9o1qUVPZXJheZNaIZ85U191LPEqj5.gif') left center / cover no-repeat !important;">
+           style="background: url('https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/statics/42LzVC0k6FtzRApELMuZht9qHocA44l0C9mcv2vF.jpg') left center / cover no-repeat !important;">
             <span>PROMOSYONLAR</span>
         </a>
     `;
