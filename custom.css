@@ -363,6 +363,12 @@ ease;
     opacity: 1;
 }
 
-#mini-slider-wrapper{
-order:-2 !important;
+.section.section--first {
+    order: -2;
 }
+
+.section--last {
+    padding-bottom: 0px !important;
+    order: -1;
+}
+
