@@ -256,39 +256,41 @@
         }
     }
 
-    // Link Interceptor - SPA Navigation için
-    function setupLinkInterceptors() {
-        document.body.addEventListener('click', function(e) {
-            const link = e.target.closest('a');
-            if (!link) return;
+// Link Interceptor - SPA Navigation için
+function setupLinkInterceptors() {
+    document.body.addEventListener('click', function(e) {
+        const link = e.target.closest('a');
+        if (!link) return;
 
-            // Dış linkler için normal davranış
-            if (link.href && (link.href.startsWith('http') && !link.href.includes(window.location.hostname))) {
-                return;
-            }
+        // Dış linkler için normal davranış
+        if (link.href && (link.href.startsWith('http') && !link.href.includes(window.location.hostname))) {
+            return;
+        }
 
-            // İç linkler için SPA navigation
-            if (!link.target || link.target === '_self') {
-                const href = link.getAttribute('href');
-                if (href && href.startsWith('/')) {
-                    // Custom section içindeki linkler için
-                    const isCustomSectionLink = link.closest('.ebitbet-product-banner') || link.closest('.ebitbet-hero-banner');
-                    if (isCustomSectionLink) {
-                        e.preventDefault();
-                        
-                        isNavigating = true;
-                        
-                        window.history.pushState({}, '', href);
-                        window.dispatchEvent(new PopStateEvent('popstate'));
-                        
-                        isNavigating = false;
-                        initializeComponents();
-                        return;
-                    }
+        // İç linkler için SPA navigation
+        if (!link.target || link.target === '_self') {
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('/')) {
+                // Custom section içindeki linkler için
+                const isCustomSectionLink = link.closest('.ebitbet-product-banner') || 
+                                           link.closest('.ebitbet-hero-banner') ||
+                                           link.closest('.sidebar__link--promotions');
+                if (isCustomSectionLink) {
+                    e.preventDefault();
+                    
+                    isNavigating = true;
+                    
+                    window.history.pushState({}, '', href);
+                    window.dispatchEvent(new PopStateEvent('popstate'));
+                    
+                    isNavigating = false;
+                    initializeComponents();
+                    return;
                 }
             }
-        });
-    }
+        }
+    });
+}
 
    
     function handleUrlChange() {
