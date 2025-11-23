@@ -383,52 +383,40 @@
 
 
   // Sidebar Promosyonlar Butonu
-    function createPromotionsButton() {
-        if (document.querySelector('.sidebar__link--promotions')) return;
+function addPromotionsButton() {
+    if (document.querySelector('.sidebar__link--promotions')) return;
 
-        const sidebarLinks = document.querySelectorAll('.sidebar__links');
-        if (sidebarLinks.length < 2) return;
+    const sidebarLinks = document.querySelectorAll('.sidebar__links');
+    if (sidebarLinks.length < 2) return;
 
-        const langPrefix = getCurrentLanguagePrefix();
-        
-        const promotionsContainer = document.createElement('div');
-        promotionsContainer.className = 'sidebar__links';
-        promotionsContainer.innerHTML = `
-            <a class="sidebar__link sidebar__link--bonus sidebar__link--promotions w-100" 
-               href="${langPrefix}/promotions" 
-               style="background: url('https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/statics/9P2SH1Y6NzN9o1qUVPZXJheZNaIZ85U191LPEqj5.gif') left center / cover no-repeat !important;">
-                <span>PROMOSYONLAR</span>
-            </a>
-        `;
+    const langPrefix = getCurrentLanguagePrefix();
+    
+    const promotionsBtn = document.createElement('div');
+    promotionsBtn.className = 'sidebar__links';
+    promotionsBtn.innerHTML = `
+        <a class="sidebar__link sidebar__link--bonus sidebar__link--promotions w-100" 
+           href="${langPrefix}/promotions" 
+           style="background: url('https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/statics/9P2SH1Y6NzN9o1qUVPZXJheZNaIZ85U191LPEqj5.gif') left center / cover no-repeat !important;">
+            <span>PROMOSYONLAR</span>
+        </a>
+    `;
 
-        sidebarLinks[0].insertAdjacentElement('afterend', promotionsContainer);
-        console.log('Promosyonlar butonu eklendi');
-    }
+    sidebarLinks[0].insertAdjacentElement('afterend', promotionsBtn);
+}
 
-    // Sidebar observer
-    const sidebarObserver = new MutationObserver((mutations) => {
-        const hasSidebar = mutations.some(mutation => {
-            return Array.from(mutation.addedNodes).some(node => 
-                node.nodeType === 1 && 
-                (node.classList?.contains('sidebar__big') || 
-                 (node.querySelector && node.querySelector('.sidebar__big')))
-            );
-        });
+// Sidebar yüklendiğinde ekle
+const sidebarObserver = new MutationObserver(() => {
+    addPromotionsButton();
+});
 
-        if (hasSidebar) {
-            createPromotionsButton();
-        }
-    });
+sidebarObserver.observe(document.body, { childList: true, subtree: true });
 
-    sidebarObserver.observe(document.body, { childList: true, subtree: true });
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', addPromotionsButton);
+} else {
+    addPromotionsButton();
+}
 
-    // Sayfa yüklendiğinde
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', createPromotionsButton);
-    } else {
-        createPromotionsButton();
-    }
-
-    window.addEventListener('load', createPromotionsButton);
+window.addEventListener('load', addPromotionsButton);
 
 })();
