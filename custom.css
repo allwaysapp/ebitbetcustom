@@ -328,3 +328,8 @@ ease;
     padding-top: 16px;
     margin-right: 0.8rem;
 }
+
+.slot__img img {
+    height: 100%;
+    object-fit: cover !important;
+}
