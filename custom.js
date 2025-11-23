@@ -118,7 +118,7 @@
 
         // Dil bazlı görseller
         const imageByLang = {
-            tr: "https://ebitbert.b-cdn.net/Casino-sport/banner1.png",
+            tr: "https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/statics/Cv4klFvKHpuc9cFv0ncHwHXH0oAwZuqXOm3JRcPI.png",
             en: "https://ebitbert.b-cdn.net/Casino-sport/banner-en.png",
             fr: "https://ebitbert.b-cdn.net/Casino-sport/banner-fr.png",
             de: "https://ebitbert.b-cdn.net/Casino-sport/banner-de.png",
