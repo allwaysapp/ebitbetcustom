@@ -376,3 +376,6 @@ body:has(#main-slider) .section.section--last {
     display: none !important;
 }
 
+.header__wallet-dropdown-btn {
+    border: 1px solid #f2cb83 !important;
+}
