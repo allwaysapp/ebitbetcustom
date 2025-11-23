@@ -343,3 +343,16 @@ ease;
         padding: 0 15px;
         width: 100% !important;
     }
+
+.post__meta {
+    display: none !important;
+}
+
+    .post__title {
+        transition: color .4s ease;
+        display: none !important;
+    }
+
+.post__text {
+    display: none !important;
+}
