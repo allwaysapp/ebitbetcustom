@@ -304,3 +304,18 @@ ease;
     display: flex !important;
     flex-direction: column-reverse !important;
 }
+
+.sidebar__title {
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #ffffff !important;
+    margin-bottom: 10px;
+    padding-left: 15px;
+    width: 100%;
+    background: linear-gradient(to bottom, #f8e49c, #b78041) !important;
+    padding: 16px;
+    border-radius: 15px 15px 0 0;
+    color: #1d1d25 !important;
+}
