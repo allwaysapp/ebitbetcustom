@@ -333,3 +333,13 @@ ease;
     height: 100%;
     object-fit: cover !important;
 }
+
+.tabs-nav li {
+    margin: auto;
+    width: 100% !important;
+}
+
+.tabs-nav--modal .tabs-nav__btn {
+        padding: 0 15px;
+        width: 100% !important;
+    }
