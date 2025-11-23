@@ -362,3 +362,7 @@ ease;
     border-bottom: 3px solid var(--tf-active);
     opacity: 1;
 }
+
+#mini-slider-wrapper{
+order:-2 !important;
+}
