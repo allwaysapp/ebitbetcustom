@@ -356,3 +356,9 @@ ease;
 .post__text {
     display: none !important;
 }
+
+.category-tile.active {
+    background: #0d1c2a !important;
+    border-bottom: 3px solid var(--tf-active);
+    opacity: 1;
+}
