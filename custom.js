@@ -394,14 +394,14 @@ function addPromotionsButton() {
     const langPrefix = getCurrentLanguagePrefix();
     
     const promotionsBtn = document.createElement('div');
-    promotionsBtn.className = 'sidebar__links';
-    promotionsBtn.innerHTML = `
-        <a class="sidebar__link sidebar__link--bonus sidebar__link--promotions w-100" 
-           href="${langPrefix}/promotions" 
-           style="background: url('https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/statics/42LzVC0k6FtzRApELMuZht9qHocA44l0C9mcv2vF.jpg') left center / cover no-repeat !important;">
-            <span>PROMOSYONLAR</span>
-        </a>
-    `;
+promotionsBtn.className = 'sidebar__links';
+promotionsBtn.innerHTML = `
+    <a class="sidebar__link sidebar__link--promotions w-100" 
+       href="${langPrefix}/promotions" 
+       style="background: url('https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/statics/42LzVC0k6FtzRApELMuZht9qHocA44l0C9mcv2vF.jpg') left center / cover no-repeat !important;">
+        <span>PROMOSYONLAR</span>
+    </a>
+`;
 
     sidebarLinks[0].insertAdjacentElement('afterend', promotionsBtn);
 }
