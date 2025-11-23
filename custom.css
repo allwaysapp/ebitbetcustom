@@ -328,9 +328,3 @@ ease;
     padding-top: 16px;
     margin-right: 0.8rem;
 }
-
-img, svg {
-	max-width: none !important;
-	height: none !important;
-}
-
