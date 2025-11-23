@@ -457,3 +457,20 @@ body:has(#main-slider) .section.section--last {
         height: 65px;
     }
 }
+
+@media (min-width: 768px) {
+    .sidebar__big {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        width: 260px;
+        background-color: var(--tf-bg2);
+        border-right: 1px solid var(--tf-border);
+        padding: 1rem !important;
+        transform: translate3d(-100%, 0, 0);
+        transition: transform .4s 
+ease;
+        transition-delay: 0s;
+    }
+}
