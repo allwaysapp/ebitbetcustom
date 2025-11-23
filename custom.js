@@ -290,7 +290,7 @@
         });
     }
 
-    // URL değişikliği yönetimi - BETİFA GİBİ
+   
     function handleUrlChange() {
         isNavigating = true;
         isNavigating = false;
@@ -347,5 +347,38 @@
     window.addEventListener('load', function() {
         initializeComponents();
     });
+
+    // Footer Awards Functions
+    function createFooterAwards() {
+        if (document.querySelector('.ebitbet-footer-awards')) return;
+
+        const targetRow = document.querySelector('.footer__description')?.closest('.row');
+        if (!targetRow) return;
+
+        const awardsSection = document.createElement('div');
+        awardsSection.className = 'row ebitbet-footer-awards';
+        awardsSection.innerHTML = `
+            <div class="col-12">
+                <div class="footer-awards-container" style="display: flex; justify-content: center; align-items: center; gap: 20px; padding: 20px 0;">
+                    <img src="https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/kojqlwkejjoizdGJKQWf/statics/qADFxttxrDUm1nvMsr1JTkBiWw4pXptrkfwjkjOy.png" alt="Award 1" style="height: 60px; width: auto;">
+                    <img src="https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/kojqlwkejjoizdGJKQWf/statics/ax9rmrivANIojaeX3J44vR2MZUgT2WvjnvE5LElQ.webp" alt="Award 3" style="height: 60px; width: auto;">
+                    <img src="https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/kojqlwkejjoizdGJKQWf/statics/H8a5CU9ITIFcnfnQjsIRcLSECSkNJQMW5GYHGTxT.png" alt="Award 4" style="height: 60px; width: auto;">
+                    <img src="https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/kojqlwkejjoizdGJKQWf/statics/ocRpG5ik0qXBWh4UGXz3hlBswLgsxr9JfTbUSlYc.png" alt="Award 5" style="height: 60px; width: auto;">
+                </div>
+            </div>
+        `;
+
+        targetRow.insertAdjacentElement('afterend', awardsSection);
+        console.log('Ebitbet footer awards eklendi');
+    }
+
+    // Footer Awards'ı sayfa yüklendiğinde çalıştır
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', createFooterAwards);
+    } else {
+        createFooterAwards();
+    }
+
+    window.addEventListener('load', createFooterAwards);
 
 })();
