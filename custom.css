@@ -372,3 +372,7 @@ ease;
     order: -1;
 }
 
+body:has(#main-slider) .section.section--last {
+    display: none !important;
+}
+
