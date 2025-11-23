@@ -381,4 +381,50 @@
 
     window.addEventListener('load', createFooterAwards);
 
+
+    // Sidebar Promosyonlar Butonu Ekleme
+function createPromotionsButton() {
+    if (document.querySelector('.sidebar__link--promotions')) return;
+
+    const sidebarLinks = document.querySelectorAll('.sidebar__links');
+    if (sidebarLinks.length < 2) return;
+
+    const langPrefix = getCurrentLanguagePrefix();
+    
+    const promotionsContainer = document.createElement('div');
+    promotionsContainer.className = 'sidebar__links';
+    promotionsContainer.innerHTML = `
+        <a class="sidebar__link sidebar__link--bonus sidebar__link--promotions w-100" 
+           href="${langPrefix}/promotions" 
+           style="background: url('https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/statics/9P2SH1Y6NzN9o1qUVPZXJheZNaIZ85U191LPEqj5.gif') left center / cover no-repeat !important;">
+            <span>PROMOSYONLAR</span>
+        </a>
+    `;
+
+    // Casino/Spor butonlarından sonra, Bonus Talep'ten önce ekle
+    sidebarLinks[0].insertAdjacentElement('afterend', promotionsContainer);
+    console.log('Promosyonlar butonu eklendi');
+}
+
+// Sidebar yüklendiğinde çalıştır
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', createPromotionsButton);
+} else {
+    createPromotionsButton();
+}
+
+window.addEventListener('load', createPromotionsButton);
+
+// Sidebar değişikliklerini izle
+const sidebarObserver = new MutationObserver(() => {
+    if (!document.querySelector('.sidebar__link--promotions')) {
+        createPromotionsButton();
+    }
+});
+
+const sidebar = document.querySelector('.sidebar__big');
+if (sidebar) {
+    sidebarObserver.observe(sidebar, { childList: true, subtree: true });
+}
+
 })();
