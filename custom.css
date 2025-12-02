@@ -457,3 +457,10 @@ body:has(#main-slider) .section.section--last {
         height: 65px;
     }
 }
+
+.rank-icon {
+    border-radius: 5% !important;
+    height: 35px !important;
+    object-fit: contain;
+    width: 35px !important;
+}
