@@ -135,7 +135,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr; 
     gap: 1rem;
-    background: linear-gradient(to right, #dc143c, #ff1493);
+    background: linear-gradient(to right, #dc143c, #ff147c);
     background-position: center;
     background-size: cover;
     border-radius: 1rem;
