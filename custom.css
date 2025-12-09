@@ -121,6 +121,15 @@
         grid-template-columns: repeat(4, 1fr);
     }
 
+  .product-banner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
    
 .second-content {
     display: grid;
