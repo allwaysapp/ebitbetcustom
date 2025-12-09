@@ -121,10 +121,73 @@
         grid-template-columns: repeat(4, 1fr);
     }
 
-    .second-content {
-        grid-column: span 12;
-        min-height: 340px;
-    }
+   
+.second-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 1rem;
+    background: linear-gradient(to right, #dc143c, #ff1493);
+    background-position: center;
+    background-size: cover;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+
+.second-content-item:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    justify-content: center;
+    gap: 1rem;
+}
+
+.second-content-item:first-child h1 {
+    margin: 0;
+    color: white;
+    font-size: 1.5rem;
+}
+
+
+.second-content-item:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+.product-btn1 {
+    text-decoration: none;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    background-color: #e8b76f;
+    border-radius: 0.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.product-btn1:hover {
+    background-color: #d4a55f;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(232, 183, 111, 0.4);
+}
+
+.week-game {
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.week-game img {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    border-radius: 0.5rem;
+}
+
+.week-game:hover {
+    transform: scale(1.05);
+}
 
   .product-btn {
     position: absolute;
