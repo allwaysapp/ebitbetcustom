@@ -50,6 +50,34 @@
 
         const langPrefix = getCurrentLanguagePrefix();
         
+        // Mobil kontrolü
+        const isMobile = window.innerWidth <= 1024;
+        
+        // Mobil için farklı second-content yapısı
+        const secondContentHTML = isMobile ? `
+            <div class="second-content">
+                <div class="second-content-item">
+                    <h1>HAFTANIN OYUNU</h1>
+                    <a class="product-btn1" href="${langPrefix}/casino/games/pragmaticplay-sweet-bonanza">HEMEN OYNA</a>
+                </div>
+                <div class="second-content-item">
+                    <a class="week-game" href="${langPrefix}/casino/games/pragmaticplay-sweet-bonanza"><img
+                        src="https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/games/N3SEP42ynASo6aMWHB54qEWtYsGdPydCTmdRRDBl.png"
+                        alt=""></a>
+                </div>
+            </div>
+        ` : `
+            <div class="second-content">
+                <div class="second-content-item">
+                    <h1>HAFTANIN OYUNU</h1>
+                    <a class="week-game" href="${langPrefix}/casino/games/pragmaticplay-sweet-bonanza"><img
+                        src="https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/games/N3SEP42ynASo6aMWHB54qEWtYsGdPydCTmdRRDBl.png"
+                        alt=""></a>
+                    <a class="product-btn1" href="${langPrefix}/casino/games/pragmaticplay-sweet-bonanza">HEMEN OYNA</a>
+                </div>
+            </div>
+        `;
+        
         const productBannerSection = document.createElement('div');
         productBannerSection.className = 'container ebitbet-product-banner';
         productBannerSection.innerHTML = `
@@ -79,15 +107,7 @@
                                 alt=""></a>
                     </div>
                 </div>
-                <div class="second-content">
-                    <div class="second-content-item">
-                        <h1>HAFTANIN OYUNU</h1>
-                        <a class="week-game" href="${langPrefix}/casino/games/pragmaticplay-sweet-bonanza"><img
-                                src="https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/games/N3SEP42ynASo6aMWHB54qEWtYsGdPydCTmdRRDBl.png"
-                                alt=""></a>
-                        <a class="product-btn1" href="${langPrefix}/casino/games/pragmaticplay-sweet-bonanza">HEMEN OYNA</a>
-                    </div>
-                </div>
+                ${secondContentHTML}
             </div>
         `;
         
@@ -256,43 +276,42 @@
         }
     }
 
-// Link Interceptor - SPA Navigation için
-function setupLinkInterceptors() {
-    document.body.addEventListener('click', function(e) {
-        const link = e.target.closest('a');
-        if (!link) return;
+    // Link Interceptor - SPA Navigation için
+    function setupLinkInterceptors() {
+        document.body.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (!link) return;
 
-        // Dış linkler için normal davranış
-        if (link.href && (link.href.startsWith('http') && !link.href.includes(window.location.hostname))) {
-            return;
-        }
+            // Dış linkler için normal davranış
+            if (link.href && (link.href.startsWith('http') && !link.href.includes(window.location.hostname))) {
+                return;
+            }
 
-        // İç linkler için SPA navigation
-        if (!link.target || link.target === '_self') {
-            const href = link.getAttribute('href');
-            if (href && href.startsWith('/')) {
-                // Custom section içindeki linkler için
-                const isCustomSectionLink = link.closest('.ebitbet-product-banner') || 
-                                           link.closest('.ebitbet-hero-banner') ||
-                                           link.closest('.sidebar__link--promotions');
-                if (isCustomSectionLink) {
-                    e.preventDefault();
-                    
-                    isNavigating = true;
-                    
-                    window.history.pushState({}, '', href);
-                    window.dispatchEvent(new PopStateEvent('popstate'));
-                    
-                    isNavigating = false;
-                    initializeComponents();
-                    return;
+            // İç linkler için SPA navigation
+            if (!link.target || link.target === '_self') {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('/')) {
+                    // Custom section içindeki linkler için
+                    const isCustomSectionLink = link.closest('.ebitbet-product-banner') || 
+                                               link.closest('.ebitbet-hero-banner') ||
+                                               link.closest('.sidebar__link--promotions');
+                    if (isCustomSectionLink) {
+                        e.preventDefault();
+                        
+                        isNavigating = true;
+                        
+                        window.history.pushState({}, '', href);
+                        window.dispatchEvent(new PopStateEvent('popstate'));
+                        
+                        isNavigating = false;
+                        initializeComponents();
+                        return;
+                    }
                 }
             }
-        }
-    });
-}
+        });
+    }
 
-   
     function handleUrlChange() {
         isNavigating = true;
         isNavigating = false;
@@ -350,6 +369,18 @@ function setupLinkInterceptors() {
         initializeComponents();
     });
 
+    // Ekran boyutu değiştiğinde banner'ı yeniden oluştur
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            if (isTRHomePage()) {
+                removeProductBanner();
+                createProductBanner();
+            }
+        }, 250);
+    });
+
     // Footer Awards Functions
     function createFooterAwards() {
         if (document.querySelector('.ebitbet-footer-awards')) return;
@@ -383,42 +414,41 @@ function setupLinkInterceptors() {
 
     window.addEventListener('load', createFooterAwards);
 
+    // Sidebar Promosyonlar Butonu
+    function addPromotionsButton() {
+        if (document.querySelector('.sidebar__link--promotions')) return;
 
-  // Sidebar Promosyonlar Butonu
-function addPromotionsButton() {
-    if (document.querySelector('.sidebar__link--promotions')) return;
+        const sidebarLinks = document.querySelectorAll('.sidebar__links');
+        if (sidebarLinks.length < 2) return;
 
-    const sidebarLinks = document.querySelectorAll('.sidebar__links');
-    if (sidebarLinks.length < 2) return;
+        const langPrefix = getCurrentLanguagePrefix();
+        
+        const promotionsBtn = document.createElement('div');
+        promotionsBtn.className = 'sidebar__links';
+        promotionsBtn.innerHTML = `
+            <a class="sidebar__link sidebar__link--promotions w-100" 
+               href="${langPrefix}/promotions" 
+               style="background: url('https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/statics/42LzVC0k6FtzRApELMuZht9qHocA44l0C9mcv2vF.jpg') left center / cover no-repeat !important;">
+                <span>PROMOSYONLAR</span>
+            </a>
+        `;
 
-    const langPrefix = getCurrentLanguagePrefix();
-    
-    const promotionsBtn = document.createElement('div');
-promotionsBtn.className = 'sidebar__links';
-promotionsBtn.innerHTML = `
-    <a class="sidebar__link sidebar__link--promotions w-100" 
-       href="${langPrefix}/promotions" 
-       style="background: url('https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/statics/42LzVC0k6FtzRApELMuZht9qHocA44l0C9mcv2vF.jpg') left center / cover no-repeat !important;">
-        <span>PROMOSYONLAR</span>
-    </a>
-`;
+        sidebarLinks[0].insertAdjacentElement('afterend', promotionsBtn);
+    }
 
-    sidebarLinks[0].insertAdjacentElement('afterend', promotionsBtn);
-}
+    // Sidebar yüklendiğinde ekle
+    const sidebarObserver = new MutationObserver(() => {
+        addPromotionsButton();
+    });
 
-// Sidebar yüklendiğinde ekle
-const sidebarObserver = new MutationObserver(() => {
-    addPromotionsButton();
-});
+    sidebarObserver.observe(document.body, { childList: true, subtree: true });
 
-sidebarObserver.observe(document.body, { childList: true, subtree: true });
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', addPromotionsButton);
+    } else {
+        addPromotionsButton();
+    }
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', addPromotionsButton);
-} else {
-    addPromotionsButton();
-}
-
-window.addEventListener('load', addPromotionsButton);
+    window.addEventListener('load', addPromotionsButton);
 
 })();
