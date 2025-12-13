@@ -483,6 +483,17 @@
 
         // Blog linkinin hemen altına ekle
         blogLi.insertAdjacentElement('afterend', callMeLi);
+
+        // Click event'i ekle - sayfa yenilenmesini engelle
+        const callMeLink = callMeLi.querySelector('a');
+        if (callMeLink) {
+            callMeLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.history.pushState({}, '', `${langPrefix}?modal=call-me`);
+                window.dispatchEvent(new PopStateEvent('popstate'));
+            });
+        }
+
         console.log('Ebitbet "Beni Ara" linki eklendi');
     }
 
