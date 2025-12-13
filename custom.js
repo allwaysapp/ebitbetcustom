@@ -451,6 +451,56 @@
 
     window.addEventListener('load', addPromotionsButton);
 
+    // Call Me Link - Sidebar'a "Beni Ara" Linki Ekle
+    function addCallMeLink() {
+        if (document.querySelector('.sidebar__link--call-me')) return;
+
+        // Blog linkini bul
+        const blogLink = Array.from(document.querySelectorAll('.sidebar__nav li a'))
+            .find(link => link.href && link.href.includes('/blog'));
+        
+        if (!blogLink) return;
+
+        const blogLi = blogLink.closest('li');
+        if (!blogLi) return;
+
+        const langPrefix = getCurrentLanguagePrefix();
+        
+        // Yeni li elementi oluştur
+        const callMeLi = document.createElement('li');
+        callMeLi.className = '';
+        callMeLi.innerHTML = `
+            <a href="${langPrefix}?modal=call-me" 
+               class="sidebar__link--call-me" 
+               style="transition: color 0.4s, background, background-color, border-color, box-shadow, opacity; margin-bottom: 10px; background-color: rgb(9, 27, 44); border-radius: 4px;">
+                <svg class="svg-icon">
+                    <use href="/static/media/sprite.416275c004a2977bb04b6579ccb104a4.svg#head-set" 
+                         xlink:href="/static/media/sprite.416275c004a2977bb04b6579ccb104a4.svg#head-set"></use>
+                </svg>
+                Beni Ara
+            </a>
+        `;
+
+        // Blog linkinin hemen altına ekle
+        blogLi.insertAdjacentElement('afterend', callMeLi);
+        console.log('Ebitbet "Beni Ara" linki eklendi');
+    }
+
+    // Sidebar yüklendiğinde Call Me linkini ekle
+    const callMeObserver = new MutationObserver(() => {
+        addCallMeLink();
+    });
+
+    callMeObserver.observe(document.body, { childList: true, subtree: true });
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', addCallMeLink);
+    } else {
+        addCallMeLink();
+    }
+
+    window.addEventListener('load', addCallMeLink);
+
 })();
 
 // Snow Effect Function - Yılbaşı Kar Yağışı Efekti
@@ -562,53 +612,3 @@
     };
 
 })();
-
-// Call Me Link - Sidebar'a "Beni Ara" Linki Ekle
-function addCallMeLink() {
-    if (document.querySelector('.sidebar__link--call-me')) return;
-
-    // Blog linkini bul
-    const blogLink = Array.from(document.querySelectorAll('.sidebar__nav li a'))
-        .find(link => link.href && link.href.includes('/blog'));
-    
-    if (!blogLink) return;
-
-    const blogLi = blogLink.closest('li');
-    if (!blogLi) return;
-
-    const langPrefix = getCurrentLanguagePrefix();
-    
-    // Yeni li elementi oluştur
-    const callMeLi = document.createElement('li');
-    callMeLi.className = '';
-    callMeLi.innerHTML = `
-        <a href="${langPrefix}?modal=call-me" 
-           class="sidebar__link--call-me" 
-           style="transition: color 0.4s, background, background-color, border-color, box-shadow, opacity; margin-bottom: 10px; background-color: rgb(9, 27, 44); border-radius: 4px;">
-            <svg class="svg-icon">
-                <use href="/static/media/sprite.416275c004a2977bb04b6579ccb104a4.svg#head-set" 
-                     xlink:href="/static/media/sprite.416275c004a2977bb04b6579ccb104a4.svg#head-set"></use>
-            </svg>
-            Beni Ara
-        </a>
-    `;
-
-    // Blog linkinin hemen altına ekle
-    blogLi.insertAdjacentElement('afterend', callMeLi);
-    console.log('Ebitbet "Beni Ara" linki eklendi');
-}
-
-// Sidebar yüklendiğinde ekle
-const callMeObserver = new MutationObserver(() => {
-    addCallMeLink();
-});
-
-callMeObserver.observe(document.body, { childList: true, subtree: true });
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', addCallMeLink);
-} else {
-    addCallMeLink();
-}
-
-window.addEventListener('load', addCallMeLink);
