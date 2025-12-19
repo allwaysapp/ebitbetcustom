@@ -136,6 +136,11 @@
         const lang = getCurrentLanguage();
         const langPrefix = getCurrentLanguagePrefix();
 
+        // Kullanıcı giriş durumunu kontrol et
+        function isUserLoggedIn() {
+            return document.querySelector('.header__wallet .header__wallet-dropdown') !== null;
+        }
+
         // Dil bazlı görseller
         const imageByLang = {
             tr: "https://ebitbert.b-cdn.net/Casino-sport/banner1.png",
@@ -152,66 +157,102 @@
             tr: {
                 bigTitle: "Rakeback ile Tanışın",
                 smallTitle: "Oynarken oluşan kayıplarınızı takip eden ve size özel bakiye olarak geri döndüren yeni nesil sistem.",
-                button: "Kayıt Ol ve Oyna",
+                buttonLoggedOut: "Kayıt Ol ve Oyna",
+                buttonLoggedIn: "Hemen Oyna",
                 xLink: "https://x.com/ebitturkiye",
-                registerUrl: `${langPrefix}/?modal=register`
+                registerUrl: `${langPrefix}/?modal=register`,
+                casinoUrl: `${langPrefix}/casino`
             },
             en: {
                 bigTitle: "Discover Rakeback",
                 smallTitle: "A next-generation system that tracks your losses while playing and returns them as a personal balance.",
-                button: "Sign Up and Play",
+                buttonLoggedOut: "Sign Up and Play",
+                buttonLoggedIn: "Play Now",
                 xLink: "https://x.com/ebitbet",
-                registerUrl: `${langPrefix}/?modal=register`
+                registerUrl: `${langPrefix}/?modal=register`,
+                casinoUrl: `${langPrefix}/casino`
             },
             fr: {
                 bigTitle: "Découvrez le Rakeback",
                 smallTitle: "Un système nouvelle génération qui suit vos pertes pendant le jeu et les restitue sous forme de solde personnel.",
-                button: "Inscrivez-vous et jouez",
+                buttonLoggedOut: "Inscrivez-vous et jouez",
+                buttonLoggedIn: "Jouer maintenant",
                 xLink: "https://x.com/ebitbetfr",
-                registerUrl: `${langPrefix}/?modal=register`
+                registerUrl: `${langPrefix}/?modal=register`,
+                casinoUrl: `${langPrefix}/casino`
             },
             de: {
                 bigTitle: "Entdecken Sie Rakeback",
                 smallTitle: "Ein System der neuen Generation, das Ihre Verluste beim Spielen verfolgt und sie als persönliches Guthaben zurückgibt.",
-                button: "Jetzt registrieren und spielen",
+                buttonLoggedOut: "Jetzt registrieren und spielen",
+                buttonLoggedIn: "Jetzt spielen",
                 xLink: "https://x.com/ebitbetde",
-                registerUrl: `${langPrefix}/?modal=register`
+                registerUrl: `${langPrefix}/?modal=register`,
+                casinoUrl: `${langPrefix}/casino`
             },
             es: {
                 bigTitle: "Descubre el Rakeback",
                 smallTitle: "Un sistema de nueva generación que rastrea tus pérdidas mientras juegas y las devuelve como saldo personal.",
-                button: "Regístrate y juega",
+                buttonLoggedOut: "Regístrate y juega",
+                buttonLoggedIn: "Jugar ahora",
                 xLink: "https://x.com/ebitbetes",
-                registerUrl: `${langPrefix}/?modal=register`
+                registerUrl: `${langPrefix}/?modal=register`,
+                casinoUrl: `${langPrefix}/casino`
             },
             ru: {
                 bigTitle: "Откройте для себя Rakeback",
                 smallTitle: "Система нового поколения, которая отслеживает ваши потери во время игры и возвращает их в виде личного баланса.",
-                button: "Зарегистрируйтесь и играйте",
+                buttonLoggedOut: "Зарегистрируйтесь и играйте",
+                buttonLoggedIn: "Играть сейчас",
                 xLink: "https://x.com/ebitbetru",
-                registerUrl: `${langPrefix}/?modal=register`
+                registerUrl: `${langPrefix}/?modal=register`,
+                casinoUrl: `${langPrefix}/casino`
             },
             jp: {
                 bigTitle: "レイクバックを体験しよう",
                 smallTitle: "プレイ中の損失を追跡し、個人残高として還元する次世代システムです。",
-                button: "今すぐ登録してプレイ",
+                buttonLoggedOut: "今すぐ登録してプレイ",
+                buttonLoggedIn: "今すぐプレイ",
                 xLink: "https://x.com/ebitbetjp",
-                registerUrl: `${langPrefix}/?modal=register`
+                registerUrl: `${langPrefix}/?modal=register`,
+                casinoUrl: `${langPrefix}/casino`
             }
         };
 
         const t = contentByLang[lang] || contentByLang.en;
         const bannerImage = imageByLang[lang] || imageByLang.en;
 
+        // Buton durumunu güncelle
+        function updateButtonState() {
+            const ctaBtn = document.querySelector('.ebitbet-hero-banner .cta-btn');
+            if (!ctaBtn) return;
+
+            const loggedIn = isUserLoggedIn();
+            
+            if (loggedIn) {
+                ctaBtn.textContent = t.buttonLoggedIn;
+                ctaBtn.href = t.casinoUrl;
+            } else {
+                ctaBtn.textContent = t.buttonLoggedOut;
+                ctaBtn.href = t.registerUrl;
+            }
+        }
+
         // HTML oluştur
         const heroBanner = document.createElement('div');
         heroBanner.className = 'ebitbet-hero-banner';
+        
+        // İlk durumu belirle
+        const initialLoggedIn = isUserLoggedIn();
+        const initialButtonText = initialLoggedIn ? t.buttonLoggedIn : t.buttonLoggedOut;
+        const initialButtonUrl = initialLoggedIn ? t.casinoUrl : t.registerUrl;
+        
         heroBanner.innerHTML = `
             <div class="hero-left">
                 <h1>${t.bigTitle}</h1>
                 <p>${t.smallTitle}</p>
                 <div class="cta-row">
-                    <a href="${t.registerUrl}" class="cta-btn">${t.button}</a>
+                    <a href="${initialButtonUrl}" class="cta-btn">${initialButtonText}</a>
                     <div class="social-icons">
                         <a href="https://www.instagram.com/ebitbet/" target="_blank"><img src="https://ebitbert.b-cdn.net/iconlar/insta.png" alt="Instagram"></a>
                         <a href="https://t.me/ebitturkiye" target="_blank"><img src="https://ebitbert.b-cdn.net/iconlar/telegram.png" alt="Telegram"></a>
@@ -242,6 +283,46 @@
                     mainSlider.parentNode.appendChild(heroBanner);
                 }
             }
+        }
+
+        // MutationObserver ile header değişikliklerini izle (performans optimizasyonu ile)
+        let lastLoginState = initialLoggedIn;
+        let observerTimeout = null;
+        
+        const headerObserver = new MutationObserver(() => {
+            // Debounce: 300ms içinde tekrar çağrı gelirse öncekini iptal et
+            if (observerTimeout) {
+                clearTimeout(observerTimeout);
+            }
+            
+            observerTimeout = setTimeout(() => {
+                const currentLoginState = isUserLoggedIn();
+                
+                // Sadece durum değiştiyse güncelle
+                if (currentLoginState !== lastLoginState) {
+                    lastLoginState = currentLoginState;
+                    updateButtonState();
+                    console.log('Ebitbet hero banner buton güncellendi:', currentLoginState ? 'Giriş yapıldı' : 'Çıkış yapıldı');
+                }
+            }, 300);
+        });
+
+        // Header'ı izle
+        const header = document.querySelector('header') || document.querySelector('.header');
+        if (header) {
+            headerObserver.observe(header, {
+                childList: true,
+                subtree: true,
+                attributes: false
+            });
+            
+            // Banner kaldırıldığında observer'ı temizle
+            heroBanner.addEventListener('DOMNodeRemoved', function() {
+                headerObserver.disconnect();
+                if (observerTimeout) {
+                    clearTimeout(observerTimeout);
+                }
+            });
         }
 
         console.log('Ebitbet hero banner eklendi');
