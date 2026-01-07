@@ -554,3 +554,9 @@ body:has(#main-slider) .section.section--last {
     object-fit: contain;
     width: 35px !important;
 }
+
+.tabs-nav__btn.active {
+    color: var(--tf-tc);
+    border-color: var(--tf-border);
+    background: linear-gradient(to bottom, #f8e49c, #b78041) !important;
+}
