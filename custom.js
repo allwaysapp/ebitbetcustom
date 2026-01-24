@@ -143,7 +143,7 @@
 
         // Dil bazlı görseller
         const imageByLang = {
-            tr: "https://ebitbert.b-cdn.net/Casino-sport/banner1.png",
+            tr: "https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/rake.png",
             en: "https://ebitbert.b-cdn.net/Casino-sport/banner-en.png",
             fr: "https://ebitbert.b-cdn.net/Casino-sport/banner-fr.png",
             de: "https://ebitbert.b-cdn.net/Casino-sport/banner-de.png",
