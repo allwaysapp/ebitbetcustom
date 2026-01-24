@@ -317,10 +317,9 @@ ease;
 
 .ebitbet-hero-banner .hero-right img {
     width: 100%;
-    max-width: 560px;
+    max-width: 310px;
     height: auto;
     display: block;
-    margin-bottom: -20px;
 }
 
 @media (max-width: 768px) {
