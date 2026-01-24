@@ -254,10 +254,10 @@
                 <div class="cta-row">
                     <a href="${initialButtonUrl}" class="cta-btn">${initialButtonText}</a>
                     <div class="social-icons">
-                        <a href="https://www.instagram.com/ebitbet/" target="_blank"><img src="https://ebitbert.b-cdn.net/iconlar/insta.png" alt="Instagram"></a>
-                        <a href="https://t.me/ebitturkiye" target="_blank"><img src="https://ebitbert.b-cdn.net/iconlar/telegram.png" alt="Telegram"></a>
-                        <a href="${t.xLink}" target="_blank"><img src="https://ebitbert.b-cdn.net/iconlar/x%20(11).png" alt="X"></a>
-                        <a href="https://wa.me/355688840383" target="_blank"><img src="https://ebitbert.b-cdn.net/iconlar/whatsapp%20(1).png" alt="WhatsApp"></a>
+                        <a href="https://www.instagram.com/ebitbet/" target="_blank"><img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/instagram.png" alt="Instagram"></a>
+                        <a href="https://t.me/ebitturkiye" target="_blank"><img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/telegram.png" alt="Telegram"></a>
+                        <a href="${t.xLink}" target="_blank"><img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/twitter.png" alt="X"></a>
+                        <a href="https://wa.me/355688840383" target="_blank"><img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/whatsapp.png" alt="WhatsApp"></a>
                     </div>
                 </div>
             </div>
