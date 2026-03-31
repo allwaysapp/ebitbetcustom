@@ -61,8 +61,8 @@
                     <a class="product-btn1" href="${langPrefix}/casino/games/pragmaticplay-sweet-bonanza">HEMEN OYNA</a>
                 </div>
                 <div class="second-content-item">
-                    <a class="week-game" href="${langPrefix}/casino/games/pragmaticplay-sweet-bonanza"><img
-                        src="https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/games/N3SEP42ynASo6aMWHB54qEWtYsGdPydCTmdRRDBl.png"
+                    <a class="week-game" href="${langPrefix}/casino/games/pragmaticplay-sugar-rush-super-scatter"><img
+                        src="https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/kojqlwkejjoizdGJKQWf/games/jS7XkOePH3MmmwbEjmZJ8ip3pB6U0y2XtMsc9G4U.png"
                         alt=""></a>
                 </div>
             </div>
@@ -70,8 +70,8 @@
             <div class="second-content">
                 <div class="second-content-item">
                     <h1>HAFTANIN OYUNU</h1>
-                    <a class="week-game" href="${langPrefix}/casino/games/pragmaticplay-sweet-bonanza"><img
-                        src="https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/games/N3SEP42ynASo6aMWHB54qEWtYsGdPydCTmdRRDBl.png"
+                    <a class="week-game" href="${langPrefix}/casino/games/pragmaticplay-sugar-rush-super-scatter"><img
+                        src="https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/kojqlwkejjoizdGJKQWf/games/jS7XkOePH3MmmwbEjmZJ8ip3pB6U0y2XtMsc9G4U.png"
                         alt=""></a>
                     <a class="product-btn1" href="${langPrefix}/casino/games/pragmaticplay-sweet-bonanza">HEMEN OYNA</a>
                 </div>
