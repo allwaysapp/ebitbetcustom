@@ -559,3 +559,9 @@ body:has(#main-slider) .section.section--last {
     border-color: var(--tf-border);
     background: linear-gradient(to bottom, #f8e49c, #b78041) !important;
 }
+
+.lazy-load-image-background.blur.lazy-load-image-loaded>img {
+    aspect-ratio: 3 / 4 !important;
+    opacity: 1;
+    transition: opacity .3s;
+}
