@@ -159,7 +159,7 @@
                 smallTitle: "Oynarken oluşan kayıplarınızı takip eden ve size özel bakiye olarak geri döndüren yeni nesil sistem.",
                 buttonLoggedOut: "Kayıt Ol ve Oyna",
                 buttonLoggedIn: "Hemen Oyna",
-                xLink: "https://x.com/ebitturkiye",
+                xLink: "https://x.com/socialebit",
                 registerUrl: `${langPrefix}/?modal=register`,
                 casinoUrl: `${langPrefix}/casino`
             },
@@ -254,8 +254,8 @@
                 <div class="cta-row">
                     <a href="${initialButtonUrl}" class="cta-btn">${initialButtonText}</a>
                     <div class="social-icons">
-                        <a href="https://www.instagram.com/ebitbet/" target="_blank"><img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/instagram.png" alt="Instagram"></a>
-                        <a href="https://t.me/ebitturkiye" target="_blank"><img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/telegram.png" alt="Telegram"></a>
+                        <a href="https://www.instagram.com/ebiturkiye/" target="_blank"><img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/instagram.png" alt="Instagram"></a>
+                        <a href="https://t.me/ebitbetresmi" target="_blank"><img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/telegram.png" alt="Telegram"></a>
                         <a href="${t.xLink}" target="_blank"><img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/twitter2.png" alt="X"></a>
                         <a href="https://wa.me/355688840383" target="_blank"><img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/whatsapp.png" alt="WhatsApp"></a>
                     </div>
