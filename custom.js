@@ -58,11 +58,11 @@
             <div class="second-content">
                 <div class="second-content-item">
                     <h1>HAFTANIN OYUNU</h1>
-                    <a class="product-btn1" href="${langPrefix}/casino/games/pragmaticplay-tuts-treasure-tower">HEMEN OYNA</a>
+                    <a class="product-btn1" href="${langPrefix}/casino/games/pragmaticplay-fire-stampede-ultimate">HEMEN OYNA</a>
                 </div>
                 <div class="second-content-item">
-                    <a class="week-game" href="${langPrefix}/casino/games/pragmaticplay-tuts-treasure-tower"><img
-                        src="https://i.ibb.co/QvHcZMyx/Tut-s-Treasure-Tower-318x420-B.png"
+                    <a class="week-game" href="${langPrefix}/casino/games/pragmaticplay-fire-stampede-ultimate"><img
+                        src="https://i.ibb.co/wZKMXQf9/Fire-Stampede-Ultimate-416x560-PP-Logo-EN.png"
                         alt=""></a>
                 </div>
             </div>
@@ -70,10 +70,10 @@
             <div class="second-content">
                 <div class="second-content-item">
                     <h1>HAFTANIN OYUNU</h1>
-                    <a class="week-game" href="${langPrefix}/casino/games/pragmaticplay-tuts-treasure-tower"><img
-                        src="https://i.ibb.co/QvHcZMyx/Tut-s-Treasure-Tower-318x420-B.png"
+                    <a class="week-game" href="${langPrefix}/casino/games/pragmaticplay-fire-stampede-ultimate"><img
+                        src="https://i.ibb.co/wZKMXQf9/Fire-Stampede-Ultimate-416x560-PP-Logo-EN.png"
                         alt=""></a>
-                    <a class="product-btn1" href="${langPrefix}/casino/games/pragmaticplay-sweet-bonanza">HEMEN OYNA</a>
+                    <a class="product-btn1" href="${langPrefix}/casino/games/pragmaticplay-fire-stampede-ultimate">HEMEN OYNA</a>
                 </div>
             </div>
         `;
