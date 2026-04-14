@@ -257,7 +257,7 @@
                         <a href="https://www.instagram.com/ebiturkiye/" target="_blank"><img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/instagram.png" alt="Instagram"></a>
                         <a href="https://t.me/ebitbetresmi" target="_blank"><img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/telegram.png" alt="Telegram"></a>
                         <a href="${t.xLink}" target="_blank"><img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/twitter2.png" alt="X"></a>
-                        <a href="https://wa.me/355688840383" target="_blank"><img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/whatsapp.png" alt="WhatsApp"></a>
+                        <a href="https://wa.me/447858629425" target="_blank"><img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/whatsapp.png" alt="WhatsApp"></a>
                     </div>
                 </div>
             </div>
