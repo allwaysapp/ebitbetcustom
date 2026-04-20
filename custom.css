@@ -557,3 +557,7 @@ body:has(#main-slider) .section.section--last {
     opacity: 1;
     transition: opacity .3s;
 }
+
+li:has(a[href="/tr/safe-online-casino"]) {
+  display: none;
+}
