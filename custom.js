@@ -71,7 +71,7 @@
                 <div class="second-content-item">
                     <h1>HAFTANIN OYUNU</h1>
                     <a class="week-game" href="${langPrefix}/casino/games/hacksaw-wanted-dead-or-a-wild"><img
-                        src="https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/games/hsCcjGPmGzLJj7hQHQcwym7BgMkfCxh9ENh3Qh2v.pngg"
+                        src="https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/games/hsCcjGPmGzLJj7hQHQcwym7BgMkfCxh9ENh3Qh2v.png"
                         alt=""></a>
                     <a class="product-btn1" href="${langPrefix}/casino/games/hacksaw-wanted-dead-or-a-wild">HEMEN OYNA</a>
                 </div>
