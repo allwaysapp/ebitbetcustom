@@ -1,4 +1,3 @@
-
 // ==========================================
 // FEATURE: Header Deposit Button (Desktop)
 // Header'da wallet-menu'den sonra yatırım butonu ekler
@@ -222,20 +221,22 @@
   function insertElement() {
     if (isAlreadyInserted()) return;
 
-    const firstSbBtn = document.querySelector('#responsive-menu .sb-top-btn');
-    if (!firstSbBtn) return;
+    // Anchor: .p2tabs.p2tabs--sidebar (Casino/Spor sekmeleri)
+    // Butonu bu container'ın hemen kardeşi olarak ekle → Casino/Spor altında, Hesap menüsünün üstünde
+    const p2tabs = document.querySelector('.p2tabs.p2tabs--sidebar');
+    if (!p2tabs) return;
 
     const el = createElement();
-    firstSbBtn.parentNode.insertBefore(el, firstSbBtn);
+    p2tabs.parentNode.insertBefore(el, p2tabs.nextSibling);
 
-    console.log('✅ Ebitbet sidebar deposit button eklendi');
+    console.log('✅ Ebitbet sidebar deposit button eklendi (p2tabs altı)');
   }
 
   function init() {
     setTimeout(insertElement, 400);
 
     const observer = new MutationObserver(() => {
-      if (!isAlreadyInserted() && document.querySelector('#responsive-menu .sb-top-btn')) {
+      if (!isAlreadyInserted() && document.querySelector('.p2tabs.p2tabs--sidebar')) {
         insertElement();
       }
     });
