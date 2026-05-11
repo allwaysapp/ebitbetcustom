@@ -506,3 +506,40 @@
 #responsive-menu:not(.active-menu) .ebitbet-sidebar-bonus-btn::after {
   display: none !important;
 }
+
+
+/* ========== SIDEBAR SOCIAL LINKS ========== */
+.ebitbet-sidebar-social-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.ebitbet-sidebar-social-section .sidebar-section-title {
+  margin-bottom: 4px;
+}
+
+/* Default — fallback */
+.ebitbet-social-link-item .icon svg {
+  transition: color 0.16s ease, transform 0.16s ease, filter 0.16s ease;
+}
+
+/* Marka renkleri (aria-label ile match) */
+.ebitbet-social-link-item[aria-label="Instagram"] .icon svg {
+  color: #e1306c;
+}
+
+.ebitbet-social-link-item[aria-label="X (Twitter)"] .icon svg {
+  color: #ffffff;
+}
+
+.ebitbet-social-link-item[aria-label="Telegram"] .icon svg {
+  color: #229ed9;
+}
+
+/* Hover'da hafif scale + parlama */
+.ebitbet-social-link-item:hover .icon svg {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 6px currentColor);
+}
