@@ -550,6 +550,7 @@
 /* ========== PRODUCT BANNER (V1 birebir) ========== */
 .ebitbet-product-banner-wrapper {
   margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .product-banner {
@@ -897,4 +898,9 @@
     margin: 0;
     display: none !important;
   }
+}
+
+
+.second-content-item h1 {
+  font-size:1.5rem !important;
 }
