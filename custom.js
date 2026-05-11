@@ -137,7 +137,7 @@
 // ==========================================
 // FEATURE: Sidebar Deposit Button
 // Sidebar tepesinde full-width animasyonlu yatırım butonu
-// Hedef: .sb-top-btn içeren container'ın en üstüne (ilk .sb-top-btn'den önce)
+// Hedef: .p2tabs.p2tabs--sidebar (Casino/Spor sekmeleri) altı
 // Collapsed modda icon-only (44x44 kare)
 // Kapsam: Tüm sayfalar
 // ==========================================
@@ -221,8 +221,6 @@
   function insertElement() {
     if (isAlreadyInserted()) return;
 
-    // Anchor: .p2tabs.p2tabs--sidebar (Casino/Spor sekmeleri)
-    // Butonu bu container'ın hemen kardeşi olarak ekle → Casino/Spor altında, Hesap menüsünün üstünde
     const p2tabs = document.querySelector('.p2tabs.p2tabs--sidebar');
     if (!p2tabs) return;
 
@@ -489,6 +487,7 @@
   }
 })();
 
+
 // ==========================================
 // FEATURE: Sidebar Social Links
 // Canlı Destek butonunun altına sosyal medya linkleri ekler
@@ -604,23 +603,18 @@
   }
 })();
 
+
 // ==========================================
 // FEATURE: Product Banner (Anasayfa - TR)
 // 4 ürün kartı (Casino, Spor, Yatırım, Bonuslar) + Haftanın Oyunu
-// Hedef: .welcome-content altı
+// Desktop: .welcome-content altı
+// Mobile: .hp-mobile-slider.d-lg-none altı (Betifa pattern — mobile slider DOM'da farklı yerde)
 // Kapsam: Sadece TR anasayfa (/, /tr)
-// Responsive: Mobile (<=1024px) farklı düzen, resize'da yeniden çiz
+// Responsive: Mobile (<=1024px) farklı düzen, resize'da yeniden çiz + reposition
 // ==========================================
 (function() {
   const FEATURE_ID = 'ebitbet-product-banner';
   const MOBILE_BREAKPOINT = 1024;
-
-  function isHomePage() {
-    const path = window.location.pathname;
-    return path === '/' ||
-           path === '/tr' || path === '/tr/' ||
-           path === '/en' || path === '/en/';
-  }
 
   function isTRHomePage() {
     const path = window.location.pathname;
@@ -660,6 +654,15 @@
     if (el && el.parentNode) {
       el.parentNode.removeChild(el);
     }
+  }
+
+  function getTarget() {
+    const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+    if (isMobile) {
+      const mobileSlider = document.querySelector('.hp-mobile-slider.d-lg-none');
+      if (mobileSlider) return mobileSlider;
+    }
+    return document.querySelector('.welcome-content');
   }
 
   function createElement() {
@@ -767,14 +770,31 @@
 
     if (isAlreadyInserted()) return;
 
-    const welcomeContent = document.querySelector('.welcome-content');
-    if (!welcomeContent) return;
+    const target = getTarget();
+    if (!target) return;
 
     const el = createElement();
-    welcomeContent.parentNode.insertBefore(el, welcomeContent.nextSibling);
+    target.parentNode.insertBefore(el, target.nextSibling);
     attachEventHandlers(el);
 
-    console.log('✅ Ebitbet product banner eklendi');
+    const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+    console.log('✅ Ebitbet product banner eklendi (' + (isMobile ? 'mobile - hp-mobile-slider altı' : 'desktop - welcome-content altı') + ')');
+  }
+
+  function repositionIfNeeded() {
+    if (!isTRHomePage()) return;
+
+    const el = document.getElementById(FEATURE_ID);
+    if (!el) return;
+
+    const expectedTarget = getTarget();
+    if (!expectedTarget) return;
+
+    if (el.previousElementSibling !== expectedTarget) {
+      el.parentNode.removeChild(el);
+      expectedTarget.parentNode.insertBefore(el, expectedTarget.nextSibling);
+      console.log('✅ Ebitbet product banner repositioned');
+    }
   }
 
   function init() {
@@ -782,7 +802,7 @@
 
     const observer = new MutationObserver(() => {
       if (isTRHomePage()) {
-        if (!isAlreadyInserted() && document.querySelector('.welcome-content')) {
+        if (!isAlreadyInserted() && getTarget()) {
           insertElement();
         }
       } else {
@@ -836,12 +856,16 @@
 // FEATURE: Hero Banner (Rakeback — Multi-language)
 // Sol: Başlık + açıklama + CTA + sosyal medya ikonları
 // Sağ: Banner görseli (dil bazlı)
-// Hedef: #ebitbet-product-banner altı, yoksa .welcome-content altı
+// Hedef öncelik sırası:
+//   1. #ebitbet-product-banner (TR'de her zaman var) — altına
+//   2. Mobile'da: .hp-mobile-slider.d-lg-none altına (TR dışı dillerde)
+//   3. Desktop'ta: .welcome-content altına (TR dışı dillerde)
 // Login-aware: Login varsa "Hemen Oyna" → /casino/lobby, yoksa "Kayıt Ol" → ?modal=auth&tab=register
 // Kapsam: Tüm dillerde anasayfa
 // ==========================================
 (function() {
   const FEATURE_ID = 'ebitbet-hero-banner';
+  const MOBILE_BREAKPOINT = 1024;
 
   function isHomePage() {
     const path = window.location.pathname;
@@ -1037,8 +1061,17 @@
   }
 
   function getTarget() {
-    return document.getElementById('ebitbet-product-banner')
-        || document.querySelector('.welcome-content');
+    // 1. Önce product banner var mı bak (TR anasayfada her zaman olmalı)
+    const productBanner = document.getElementById('ebitbet-product-banner');
+    if (productBanner) return productBanner;
+
+    // 2. Yoksa (TR dışı dillerde) mobile/desktop'a göre slider'ı seç
+    const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+    if (isMobile) {
+      const mobileSlider = document.querySelector('.hp-mobile-slider.d-lg-none');
+      if (mobileSlider) return mobileSlider;
+    }
+    return document.querySelector('.welcome-content');
   }
 
   function insertElement() {
@@ -1057,6 +1090,22 @@
     attachEventHandlers(el);
 
     console.log('✅ Ebitbet hero banner eklendi');
+  }
+
+  function repositionIfNeeded() {
+    if (!isHomePage()) return;
+
+    const el = document.getElementById(FEATURE_ID);
+    if (!el) return;
+
+    const expectedTarget = getTarget();
+    if (!expectedTarget) return;
+
+    if (el.previousElementSibling !== expectedTarget) {
+      el.parentNode.removeChild(el);
+      expectedTarget.parentNode.insertBefore(el, expectedTarget.nextSibling);
+      console.log('✅ Ebitbet hero banner repositioned');
+    }
   }
 
   function init() {
@@ -1092,6 +1141,13 @@
         }, 500);
       }
     }).observe(document, { subtree: true, childList: true });
+
+    // Resize handler — mobile/desktop arası geçişte reposition
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(repositionIfNeeded, 250);
+    });
   }
 
   if (document.readyState === 'loading') {
