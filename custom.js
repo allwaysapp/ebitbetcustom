@@ -603,3 +603,500 @@
     init();
   }
 })();
+
+// ==========================================
+// FEATURE: Product Banner (Anasayfa - TR)
+// 4 ürün kartı (Casino, Spor, Yatırım, Bonuslar) + Haftanın Oyunu
+// Hedef: .welcome-content altı
+// Kapsam: Sadece TR anasayfa (/, /tr)
+// Responsive: Mobile (<=1024px) farklı düzen, resize'da yeniden çiz
+// ==========================================
+(function() {
+  const FEATURE_ID = 'ebitbet-product-banner';
+  const MOBILE_BREAKPOINT = 1024;
+
+  function isHomePage() {
+    const path = window.location.pathname;
+    return path === '/' ||
+           path === '/tr' || path === '/tr/' ||
+           path === '/en' || path === '/en/';
+  }
+
+  function isTRHomePage() {
+    const path = window.location.pathname;
+    return path === '/' || path === '/tr' || path === '/tr/';
+  }
+
+  function getCurrentLanguagePrefix() {
+    const path = window.location.pathname;
+    const match = path.match(/^\/([a-z]{2})(\/|$)/);
+    return match ? '/' + match[1] : '/tr';
+  }
+
+  function navigateTo(url) {
+    if (window.next && window.next.router && typeof window.next.router.push === 'function') {
+      window.next.router.push(url);
+    } else {
+      window.history.pushState({}, '', url);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
+  }
+
+  function isUserLoggedIn() {
+    return document.querySelector('.login-buttons') === null;
+  }
+
+  function openLoginModal() {
+    const langPrefix = getCurrentLanguagePrefix();
+    navigateTo(langPrefix + '?modal=auth&tab=login');
+  }
+
+  function isAlreadyInserted() {
+    return document.getElementById(FEATURE_ID) !== null;
+  }
+
+  function removeElement() {
+    const el = document.getElementById(FEATURE_ID);
+    if (el && el.parentNode) {
+      el.parentNode.removeChild(el);
+    }
+  }
+
+  function createElement() {
+    const langPrefix = getCurrentLanguagePrefix();
+    const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
+
+    const weekGameSlug = 'hacksaw-wanted-dead-or-a-wild';
+    const weekGameUrl = `${langPrefix}/games/${weekGameSlug}`;
+    const weekGameImg = 'https://vendor-provider.fra1.cdn.digitaloceanspaces.com/ebetlab/yHSTi79Pv5V9CNAgBA11WTRRLqJJ1eFD/games/hsCcjGPmGzLJj7hQHQcwym7BgMkfCxh9ENh3Qh2v.png';
+
+    const secondContentHTML = isMobile ? `
+      <div class="second-content">
+        <div class="second-content-item">
+          <h1>HAFTANIN OYUNU</h1>
+          <a class="product-btn1" data-internal-link="${weekGameUrl}" href="${weekGameUrl}">HEMEN OYNA</a>
+        </div>
+        <div class="second-content-item">
+          <a class="week-game" data-internal-link="${weekGameUrl}" href="${weekGameUrl}">
+            <img src="${weekGameImg}" alt="Haftanın Oyunu">
+          </a>
+        </div>
+      </div>
+    ` : `
+      <div class="second-content">
+        <div class="second-content-item">
+          <h1>HAFTANIN OYUNU</h1>
+          <a class="week-game" data-internal-link="${weekGameUrl}" href="${weekGameUrl}">
+            <img src="${weekGameImg}" alt="Haftanın Oyunu">
+          </a>
+          <a class="product-btn1" data-internal-link="${weekGameUrl}" href="${weekGameUrl}">HEMEN OYNA</a>
+        </div>
+      </div>
+    `;
+
+    const wrapper = document.createElement('div');
+    wrapper.id = FEATURE_ID;
+    wrapper.className = 'container ebitbet-product-banner-wrapper';
+    wrapper.innerHTML = `
+      <div class="row">
+        <div class="col-12">
+          <div class="product-banner">
+            <div class="first-content">
+              <div class="first-content-item">
+                <a class="product-btn" data-internal-link="${langPrefix}/casino/lobby" href="${langPrefix}/casino/lobby">GİRİŞ YAP</a>
+                <a data-internal-link="${langPrefix}/casino/lobby" href="${langPrefix}/casino/lobby">
+                  <img src="https://github.com/allwaysapp/ebitbetcustom/blob/main/img/pcasino.jpg?raw=true" alt="Casino">
+                </a>
+              </div>
+              <div class="first-content-item">
+                <a class="product-btn" data-internal-link="${langPrefix}/sportsbook" href="${langPrefix}/sportsbook">GİRİŞ YAP</a>
+                <a data-internal-link="${langPrefix}/sportsbook" href="${langPrefix}/sportsbook">
+                  <img src="https://github.com/allwaysapp/ebitbetcustom/blob/main/img/pspor.jpg?raw=true" alt="Spor">
+                </a>
+              </div>
+              <div class="first-content-item">
+                <a class="product-btn" data-banner-action="deposit" href="#">YATIRIM YAP</a>
+                <a data-banner-action="deposit" href="#">
+                  <img src="https://github.com/allwaysapp/ebitbetcustom/blob/main/img/pdeposit.jpg?raw=true" alt="Yatırım">
+                </a>
+              </div>
+              <div class="first-content-item">
+                <a class="product-btn" data-internal-link="${langPrefix}/promotions/active" href="${langPrefix}/promotions/active">HEMEN KAP</a>
+                <a data-internal-link="${langPrefix}/promotions/active" href="${langPrefix}/promotions/active">
+                  <img src="https://github.com/allwaysapp/ebitbetcustom/blob/main/img/pbonuslar.jpg?raw=true" alt="Bonuslar">
+                </a>
+              </div>
+            </div>
+            ${secondContentHTML}
+          </div>
+        </div>
+      </div>
+    `;
+    return wrapper;
+  }
+
+  function attachEventHandlers(root) {
+    // Internal SPA navigation links
+    root.querySelectorAll('[data-internal-link]').forEach(el => {
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        const url = this.getAttribute('data-internal-link');
+        navigateTo(url);
+      });
+    });
+
+    // Deposit links (login-aware)
+    root.querySelectorAll('[data-banner-action="deposit"]').forEach(el => {
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        const langPrefix = getCurrentLanguagePrefix();
+        if (isUserLoggedIn()) {
+          navigateTo(langPrefix + '/wallet/fiat/deposit');
+        } else {
+          openLoginModal();
+        }
+      });
+    });
+  }
+
+  function insertElement() {
+    if (!isTRHomePage()) {
+      removeElement();
+      return;
+    }
+
+    if (isAlreadyInserted()) return;
+
+    const welcomeContent = document.querySelector('.welcome-content');
+    if (!welcomeContent) return;
+
+    const el = createElement();
+    welcomeContent.parentNode.insertBefore(el, welcomeContent.nextSibling);
+    attachEventHandlers(el);
+
+    console.log('✅ Ebitbet product banner eklendi');
+  }
+
+  function init() {
+    setTimeout(insertElement, 400);
+
+    const observer = new MutationObserver(() => {
+      if (isTRHomePage()) {
+        if (!isAlreadyInserted() && document.querySelector('.welcome-content')) {
+          insertElement();
+        }
+      } else {
+        if (isAlreadyInserted()) {
+          removeElement();
+        }
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    let lastUrl = location.href;
+    new MutationObserver(() => {
+      if (location.href !== lastUrl) {
+        lastUrl = location.href;
+        setTimeout(() => {
+          if (isTRHomePage()) {
+            insertElement();
+          } else {
+            removeElement();
+          }
+        }, 400);
+      }
+    }).observe(document, { subtree: true, childList: true });
+
+    // Resize handler — mobile/desktop arası geçişte yeniden çiz
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        if (isTRHomePage()) {
+          removeElement();
+          insertElement();
+        }
+      }, 250);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+
+// ==========================================
+// FEATURE: Hero Banner (Rakeback — Multi-language)
+// Sol: Başlık + açıklama + CTA + sosyal medya ikonları
+// Sağ: Banner görseli (dil bazlı)
+// Hedef: #ebitbet-product-banner altı, yoksa .welcome-content altı
+// Login-aware: Login varsa "Hemen Oyna" → /casino/lobby, yoksa "Kayıt Ol" → ?modal=auth&tab=register
+// Kapsam: Tüm dillerde anasayfa
+// ==========================================
+(function() {
+  const FEATURE_ID = 'ebitbet-hero-banner';
+
+  function isHomePage() {
+    const path = window.location.pathname;
+    return path === '/' ||
+           path === '/tr' || path === '/tr/' ||
+           path === '/en' || path === '/en/';
+  }
+
+  function getCurrentLanguage() {
+    const path = window.location.pathname;
+    const match = path.match(/^\/([a-z]{2})(\/|$)/);
+    return match ? match[1] : 'tr';
+  }
+
+  function getCurrentLanguagePrefix() {
+    const path = window.location.pathname;
+    const match = path.match(/^\/([a-z]{2})(\/|$)/);
+    return match ? '/' + match[1] : '/tr';
+  }
+
+  function navigateTo(url) {
+    if (window.next && window.next.router && typeof window.next.router.push === 'function') {
+      window.next.router.push(url);
+    } else {
+      window.history.pushState({}, '', url);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
+  }
+
+  function isUserLoggedIn() {
+    return document.querySelector('.login-buttons') === null;
+  }
+
+  function isAlreadyInserted() {
+    return document.getElementById(FEATURE_ID) !== null;
+  }
+
+  function removeElement() {
+    const el = document.getElementById(FEATURE_ID);
+    if (el && el.parentNode) {
+      el.parentNode.removeChild(el);
+    }
+  }
+
+  const imageByLang = {
+    tr: 'https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/rake.png',
+    en: 'https://ebitbert.b-cdn.net/Casino-sport/banner-en.png',
+    fr: 'https://ebitbert.b-cdn.net/Casino-sport/banner-fr.png',
+    de: 'https://ebitbert.b-cdn.net/Casino-sport/banner-de.png',
+    es: 'https://ebitbert.b-cdn.net/Casino-sport/banner-es.png',
+    ru: 'https://ebitbert.b-cdn.net/Casino-sport/banner-ru.png',
+    jp: 'https://ebitbert.b-cdn.net/Casino-sport/banner-jp.png'
+  };
+
+  const contentByLang = {
+    tr: {
+      bigTitle: 'Rakeback ile Tanışın',
+      smallTitle: 'Oynarken oluşan kayıplarınızı takip eden ve size özel bakiye olarak geri döndüren yeni nesil sistem.',
+      buttonLoggedOut: 'Kayıt Ol ve Oyna',
+      buttonLoggedIn: 'Hemen Oyna'
+    },
+    en: {
+      bigTitle: 'Discover Rakeback',
+      smallTitle: 'A next-generation system that tracks your losses while playing and returns them as a personal balance.',
+      buttonLoggedOut: 'Sign Up and Play',
+      buttonLoggedIn: 'Play Now'
+    },
+    fr: {
+      bigTitle: 'Découvrez le Rakeback',
+      smallTitle: 'Un système nouvelle génération qui suit vos pertes pendant le jeu et les restitue sous forme de solde personnel.',
+      buttonLoggedOut: 'Inscrivez-vous et jouez',
+      buttonLoggedIn: 'Jouer maintenant'
+    },
+    de: {
+      bigTitle: 'Entdecken Sie Rakeback',
+      smallTitle: 'Ein System der neuen Generation, das Ihre Verluste beim Spielen verfolgt und sie als persönliches Guthaben zurückgibt.',
+      buttonLoggedOut: 'Jetzt registrieren und spielen',
+      buttonLoggedIn: 'Jetzt spielen'
+    },
+    es: {
+      bigTitle: 'Descubre el Rakeback',
+      smallTitle: 'Un sistema de nueva generación que rastrea tus pérdidas mientras juegas y las devuelve como saldo personal.',
+      buttonLoggedOut: 'Regístrate y juega',
+      buttonLoggedIn: 'Jugar ahora'
+    },
+    ru: {
+      bigTitle: 'Откройте для себя Rakeback',
+      smallTitle: 'Система нового поколения, которая отслеживает ваши потери во время игры и возвращает их в виде личного баланса.',
+      buttonLoggedOut: 'Зарегистрируйтесь и играйте',
+      buttonLoggedIn: 'Играть сейчас'
+    },
+    jp: {
+      bigTitle: 'レイクバックを体験しよう',
+      smallTitle: 'プレイ中の損失を追跡し、個人残高として還元する次世代システムです。',
+      buttonLoggedOut: '今すぐ登録してプレイ',
+      buttonLoggedIn: '今すぐプレイ'
+    }
+  };
+
+  function createElement() {
+    const lang = getCurrentLanguage();
+    const langPrefix = getCurrentLanguagePrefix();
+    const t = contentByLang[lang] || contentByLang.en;
+    const bannerImage = imageByLang[lang] || imageByLang.en;
+
+    const loggedIn = isUserLoggedIn();
+    const buttonText = loggedIn ? t.buttonLoggedIn : t.buttonLoggedOut;
+    const buttonAction = loggedIn ? 'play' : 'register';
+
+    const wrapper = document.createElement('div');
+    wrapper.id = FEATURE_ID;
+    wrapper.className = 'container ebitbet-hero-banner-wrapper';
+    wrapper.innerHTML = `
+      <div class="row">
+        <div class="col-12">
+          <div class="ebitbet-hero-banner">
+            <div class="hero-left">
+              <h1>${t.bigTitle}</h1>
+              <p>${t.smallTitle}</p>
+              <div class="cta-row">
+                <a href="#" class="cta-btn" data-cta-action="${buttonAction}">${buttonText}</a>
+                <div class="social-icons">
+                  <a href="https://www.instagram.com/ebiturkiye" target="_blank" rel="noopener noreferrer">
+                    <img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/instagram.png" alt="Instagram">
+                  </a>
+                  <a href="https://t.me/ebitbetresmi" target="_blank" rel="noopener noreferrer">
+                    <img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/telegram.png" alt="Telegram">
+                  </a>
+                  <a href="https://x.com/socialebit" target="_blank" rel="noopener noreferrer">
+                    <img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/twitter2.png" alt="X">
+                  </a>
+                  <a href="https://wa.me/447858629425" target="_blank" rel="noopener noreferrer">
+                    <img src="https://raw.githubusercontent.com/allwaysapp/ebitbetcustom/refs/heads/main/img/whatsapp.png" alt="WhatsApp">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="hero-right">
+              <img src="${bannerImage}" alt="Ebitbet Rakeback">
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    return wrapper;
+  }
+
+  function updateCtaButton(root) {
+    const ctaBtn = root.querySelector('.cta-btn');
+    if (!ctaBtn) return;
+
+    const lang = getCurrentLanguage();
+    const t = contentByLang[lang] || contentByLang.en;
+    const loggedIn = isUserLoggedIn();
+
+    ctaBtn.textContent = loggedIn ? t.buttonLoggedIn : t.buttonLoggedOut;
+    ctaBtn.setAttribute('data-cta-action', loggedIn ? 'play' : 'register');
+  }
+
+  function attachEventHandlers(root) {
+    const ctaBtn = root.querySelector('.cta-btn');
+    if (ctaBtn) {
+      ctaBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const langPrefix = getCurrentLanguagePrefix();
+        const action = this.getAttribute('data-cta-action');
+        if (action === 'play') {
+          navigateTo(langPrefix + '/casino/lobby');
+        } else {
+          navigateTo(langPrefix + '?modal=auth&tab=register');
+        }
+      });
+    }
+
+    // Header observer — login state değişimini yakala, buton metnini güncelle (debounce'lu)
+    let lastLoginState = isUserLoggedIn();
+    let observerTimeout = null;
+    const header = document.querySelector('header') || document.querySelector('#header');
+    if (header) {
+      const headerObserver = new MutationObserver(() => {
+        if (observerTimeout) clearTimeout(observerTimeout);
+        observerTimeout = setTimeout(() => {
+          const currentLoginState = isUserLoggedIn();
+          if (currentLoginState !== lastLoginState) {
+            lastLoginState = currentLoginState;
+            updateCtaButton(root);
+            console.log('✅ Ebitbet hero banner CTA güncellendi:', currentLoginState ? 'login' : 'logout');
+          }
+        }, 300);
+      });
+      headerObserver.observe(header, { childList: true, subtree: true });
+    }
+  }
+
+  function getTarget() {
+    return document.getElementById('ebitbet-product-banner')
+        || document.querySelector('.welcome-content');
+  }
+
+  function insertElement() {
+    if (!isHomePage()) {
+      removeElement();
+      return;
+    }
+
+    if (isAlreadyInserted()) return;
+
+    const target = getTarget();
+    if (!target) return;
+
+    const el = createElement();
+    target.parentNode.insertBefore(el, target.nextSibling);
+    attachEventHandlers(el);
+
+    console.log('✅ Ebitbet hero banner eklendi');
+  }
+
+  function init() {
+    setTimeout(insertElement, 500);
+
+    const observer = new MutationObserver(() => {
+      if (isHomePage()) {
+        if (!isAlreadyInserted() && getTarget()) {
+          insertElement();
+        }
+      } else {
+        if (isAlreadyInserted()) {
+          removeElement();
+        }
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    let lastUrl = location.href;
+    new MutationObserver(() => {
+      if (location.href !== lastUrl) {
+        lastUrl = location.href;
+        setTimeout(() => {
+          if (isHomePage()) {
+            insertElement();
+          } else {
+            removeElement();
+          }
+        }, 500);
+      }
+    }).observe(document, { subtree: true, childList: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
