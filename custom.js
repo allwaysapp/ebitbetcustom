@@ -488,3 +488,118 @@
     init();
   }
 })();
+
+// ==========================================
+// FEATURE: Sidebar Social Links
+// Canlı Destek butonunun altına sosyal medya linkleri ekler
+// Hedef: .sb-top-btn.supportbtn (Canlı Destek) altı
+// Kapsam: Tüm sayfalar
+// ==========================================
+(function() {
+  const FEATURE_ID = 'ebitbet-sidebar-social-links';
+
+  const socialLinks = [
+    {
+      name: 'Instagram',
+      url: 'https://www.instagram.com/ebiturkiye',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>'
+    },
+    {
+      name: 'X (Twitter)',
+      url: 'https://x.com/socialebit',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>'
+    },
+    {
+      name: 'Telegram',
+      url: 'https://t.me/ebitbetresmi',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>'
+    }
+  ];
+
+  function isAlreadyInserted() {
+    return document.getElementById(FEATURE_ID) !== null;
+  }
+
+  function createSocialLinkButton(link) {
+    const a = document.createElement('a');
+    a.className = 'sb-top-btn ebitbet-social-link-item';
+    a.href = link.url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.setAttribute('data-sb-tooltip', link.name);
+    a.setAttribute('aria-label', link.name);
+    a.innerHTML = `
+      <span class="icon" aria-hidden="true">
+        <span style="display: inline-flex; width: 20px; height: 20px; line-height: 0;">
+          ${link.icon}
+        </span>
+      </span>
+      <span class="sb-top-title">${link.name}</span>
+      <span class="sb-top-arrow" aria-hidden="true">›</span>
+    `;
+    return a;
+  }
+
+  function createElement() {
+    const wrapper = document.createElement('div');
+    wrapper.id = FEATURE_ID;
+    wrapper.className = 'ebitbet-sidebar-social-section';
+
+    const dividerTop = document.createElement('div');
+    dividerTop.className = 'sidebar-section-title';
+    dividerTop.innerHTML = '<span class="sidebar-section-title__line"></span>';
+    wrapper.appendChild(dividerTop);
+
+    socialLinks.forEach(link => {
+      wrapper.appendChild(createSocialLinkButton(link));
+    });
+
+    const dividerBottom = document.createElement('div');
+    dividerBottom.className = 'sidebar-section-title';
+    dividerBottom.innerHTML = '<span class="sidebar-section-title__line"></span>';
+    wrapper.appendChild(dividerBottom);
+
+    return wrapper;
+  }
+
+  function insertElement() {
+    if (isAlreadyInserted()) return;
+
+    const supportBtn = document.querySelector('.sb-top-btn.supportbtn');
+    if (!supportBtn) return;
+
+    const el = createElement();
+    supportBtn.parentNode.insertBefore(el, supportBtn.nextSibling);
+
+    console.log('✅ Ebitbet sidebar social links eklendi');
+  }
+
+  function init() {
+    setTimeout(insertElement, 700);
+
+    const observer = new MutationObserver(() => {
+      if (!isAlreadyInserted() && document.querySelector('.sb-top-btn.supportbtn')) {
+        insertElement();
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    let lastUrl = location.href;
+    new MutationObserver(() => {
+      if (location.href !== lastUrl) {
+        lastUrl = location.href;
+        setTimeout(insertElement, 700);
+      }
+    }).observe(document, { subtree: true, childList: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
