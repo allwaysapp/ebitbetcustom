@@ -908,3 +908,80 @@
 .sb-top-btn[aria-label="SafeOnlineCasino"] {
   display: none !important;
 }
+
+
+/* Ebitbet Header Chat Button */
+.ebitbet-header-chat-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  margin: 0 4px;
+  background: linear-gradient(135deg, #f8e49c 0%, #d4b673 100%);
+  border: none;
+  border-radius: 8px;
+  color: #081626;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(248, 228, 156, 0.25);
+}
+
+.ebitbet-header-chat-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  box-shadow: 0 0 0 0 rgba(248, 228, 156, 0.6);
+  animation: ebitbetChatPulse 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.ebitbet-header-chat-btn:hover {
+  background: linear-gradient(135deg, #fff0b8 0%, #f8e49c 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(248, 228, 156, 0.4);
+}
+
+.ebitbet-header-chat-btn:active {
+  transform: translateY(0);
+}
+
+.ebitbet-header-chat-btn .icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.ebitbet-header-chat-btn svg {
+  display: block;
+}
+
+@keyframes ebitbetChatPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(248, 228, 156, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(248, 228, 156, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(248, 228, 156, 0);
+  }
+}
+
+/* Mobile uyumu — küçük ekranda biraz daha küçük */
+@media (max-width: 768px) {
+  .ebitbet-header-chat-btn {
+    width: 32px;
+    height: 32px;
+    margin: 0 3px;
+  }
+  .ebitbet-header-chat-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
