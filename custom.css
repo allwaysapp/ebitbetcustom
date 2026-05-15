@@ -904,3 +904,7 @@
 .second-content-item h1 {
   font-size:1.5rem !important;
 }
+
+.sb-top-btn[aria-label="SafeOnlineCasino"] {
+  display: none !important;
+}
